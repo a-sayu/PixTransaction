@@ -1,5 +1,8 @@
 package model;
 
+import log.Logger;
+import log.logType;
+
 /**
  *
  * @author Abigail S. N. - @a-sayu
@@ -11,8 +14,10 @@ public class Account {
     private String titular;
     private String chavePix;
     private double saldo;
+    private Logger log;
 
     public Account(int numeroConta, String titular, String chavePix, double saldo) {
+        log = Logger.getInstance();
         this.numeroConta = numeroConta;
         this.titular = titular;
         this.chavePix = chavePix;
@@ -21,6 +26,7 @@ public class Account {
 
     public boolean creditSaldo(double value) {
         saldo += value;
+        log.log(logType.INFO, "R$ " + value + " foi adicionado ao saldo de " + getTitular());
         return true;
     }
 
@@ -29,6 +35,7 @@ public class Account {
             return false;
         }
         saldo -= value;
+        log.log(logType.INFO, "R$ " + value + " foi removido do saldo de " + getTitular());
         return true;
     }
 
