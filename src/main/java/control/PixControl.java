@@ -20,10 +20,14 @@ public class PixControl {
     public boolean transactionByPix(Account a, Account b, Double value) {
         if (a.debitSaldo(value)) {
             b.creditSaldo(value);
-            log.log(logType.INFO, "Um Pix de R$ " + value + " foi feito de " + a.getTitular() + " para " + b.getTitular());
+            log.log(logType.INFO, "Um Pix de R$ " + value
+                    + " foi feito para " + b.getTitular()
+                    + " de " + a.getTitular());
             return true;
         }
-        log.log(logType.WARN, "Um Pix de R$ " + value + " nao foi realizado para " + b.getTitular() + " o valor eh superior ao saldo de " + a.getTitular());
+        log.log(logType.ERROR, "Um Pix de R$ " + value
+                + " nao foi realizado para " + b.getTitular()
+                + ", o valor eh superior ao saldo de " + a.getTitular());
         return false;
     }
 

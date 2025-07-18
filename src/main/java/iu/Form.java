@@ -1,6 +1,5 @@
 package iu;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -14,59 +13,47 @@ public class Form {
 
     public Form() {
         scanInput = new Scanner(System.in);
-
-    }
-
-    public ArrayList<String> pixForm() {
-        ArrayList<String> inputContent = new ArrayList<>();
-
-        System.out.print("Chave Pix: ");
-        inputContent.add(scanInput.nextLine());
-        System.out.print("Valor: ");
-        inputContent.add(scanInput.nextLine());
-
-        return inputContent;
-    }
-
-    public void showAccount(ArrayList<String> info) {
-        System.out.println("\n\nCONTA =======================");
-        System.out.println("Nome do Titular: " + info.get(0));
-        System.out.println("Numero da Conta: " + info.get(1));
-        System.out.println("Chave Pix: " + info.get(2));
-        System.out.println("Saldo: " + info.get(3));
-    }
-
-    public String connectForm() {
-        String numberAccount;
-
-        System.out.print("Número da Sua Conta: ");
-        numberAccount = scanInput.nextLine();
-
-        return numberAccount;
-    }
-
-    public ArrayList<String> registerForm() {
-        ArrayList<String> inputContent = new ArrayList<>();
-
-        System.out.print("Nome do Titular: ");
-        inputContent.add(scanInput.nextLine());
-        System.out.print("Número da Conta: ");
-        inputContent.add(scanInput.nextLine());
-        System.out.print("Chave Pix: ");
-        inputContent.add(scanInput.nextLine());
-        System.out.print("Saldo: ");
-        inputContent.add(scanInput.nextLine());
-
-        return inputContent;
     }
 
     public int initialForm() {
         System.out.println("= BANCO CONFIAVEL ==========\n");
-        System.out.println("1. Criar/Conectar Conta");
-        System.out.println("2. Realizar um Pix");
-        System.out.println("3. Visualizar Conta");
+        System.out.println("1. Criar Conta");
+        System.out.println("2. Conectar Conta");
+        System.out.println("3. Realizar um Pix");
+        System.out.println("4. Visualizar Sua Conta");
+        System.out.println("5. Visualizar Todas as Contas");
         System.out.println("0. Sair");
         return Integer.parseInt(scanInput.nextLine());
     }
 
+    public String getChavePix(String prefix) {
+        System.out.println("= " + prefix + " ==========\n");
+        System.out.print("Digite chave Pix: ");
+        return scanInput.nextLine();
+    }
+
+    public double getValue() {
+        System.out.print("Digite valor a Pagar: ");
+        return Double.parseDouble(scanInput.nextLine());
+    }
+
+    public String registerForm(String tipoRetorno) {
+        if (tipoRetorno.equalsIgnoreCase("titular")) {
+            System.out.print("Nome do Titular: ");
+        }
+        if (tipoRetorno.equalsIgnoreCase("chavePix")) {
+            System.out.print("Chave Pix: ");
+        }
+        return scanInput.nextLine();
+    }
+
+    public int registerForm(String tipoRetorno) {
+        System.out.print("Número da Conta: ");
+        return Integer.parseInt(scanInput.nextLine());
+    }
+
+    public double registerForm(String tipoRetorno) {
+        System.out.println("Saldo: ");
+        return Double.parseDouble(scanInput.nextLine());
+    }
 }

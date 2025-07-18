@@ -14,19 +14,16 @@ public class Account {
     private String titular;
     private String chavePix;
     private double saldo;
-    private Logger log;
 
-    public Account(int numeroConta, String titular, String chavePix, double saldo) {
-        log = Logger.getInstance();
-        this.numeroConta = numeroConta;
+    public Account(String titular, int numeroConta, String chavePix, double saldo) {
         this.titular = titular;
+        this.numeroConta = numeroConta;
         this.chavePix = chavePix;
         this.saldo = saldo;
     }
 
     public boolean creditSaldo(double value) {
         saldo += value;
-        log.log(logType.INFO, "R$ " + value + " foi adicionado ao saldo de " + getTitular());
         return true;
     }
 
@@ -35,16 +32,15 @@ public class Account {
             return false;
         }
         saldo -= value;
-        log.log(logType.INFO, "R$ " + value + " foi removido do saldo de " + getTitular());
         return true;
-    }
-
-    public int getNumeroConta() {
-        return numeroConta;
     }
 
     public String getTitular() {
         return titular;
+    }
+
+    public int getNumeroConta() {
+        return numeroConta;
     }
 
     public String getChavePix() {
@@ -53,6 +49,14 @@ public class Account {
 
     public double getSaldo() {
         return saldo;
+    }
+
+    @Override
+    public String toString() {
+        return "Titular: " + getTitular()
+                + "\nn. Conta: " + getNumeroConta()
+                + "\nChave Pix: " + getChavePix()
+                + "\nSaldo: " + getSaldo();
     }
 
 }

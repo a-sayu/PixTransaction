@@ -19,37 +19,54 @@ public class AccountCatalog {
         log = Logger.getInstance();
         accounts = new ArrayList<>();
     }
+    // possivel criar contas duplicadas, add ja returna true entao contains desnecessario
 
     public boolean addAccount(Account account) {
-        accounts.add(account);
-        log.log(logType.INFO, "Conta n." + account.getNumeroConta() + " foi adicionado ao catalogo ");
-        return accounts.contains(account);
+        if (accounts.add(account)) {
+            log.log(logType.INFO, "Conta n." + account.getNumeroConta()
+                    + " foi adicionada ao catalogo ");
+            return true;
+        }
+        log.log(logType.ERROR, "Conta n." + account.getNumeroConta()
+                + " não foi adicionada ao catalogo ");
+        return false;
     }
 
     public boolean removeAccount(Account account) {
-        accounts.remove(account);
-        log.log(logType.WARN, "Conta n." + account.getNumeroConta() + " foi removido do catalogo ");
-        return !accounts.contains(account);
+        if (accounts.remove(account)) {
+            log.log(logType.WARN, "Conta n." + account.getNumeroConta()
+                    + " foi removida do catalogo ");
+            return true;
+        }
+        log.log(logType.ERROR, "Conta n." + account.getNumeroConta()
+                + " não foi removida ao catalogo ");
+        return false;
     }
 
     public Account findAccountByChavePix(String chavePix) {
         for (Account account : accounts) {
             if (account.getChavePix().equals(chavePix)) {
-                log.log(logType.INFO, "Conta n." + account.getNumeroConta() + " foi encontrado no catalogo ");
+                log.log(logType.INFO, "Conta n." + account.getNumeroConta()
+                        + " foi encontrado no catalogo ");
                 return account;
             }
         }
+        log.log(logType.WARN, "Conta com chave Pix " + chavePix
+                + " não foi encontrado no catalogo ");
         return null;
     }
 
-    public Account findAccountByNumeroConta(int numeroConta) {
+    public void printAccount(String chavePix) {
+        Account account = findAccountByChavePix(chavePix);
+        System.out.println("\n\nCONTA =======================");
+        System.out.println(account);
+    }
+
+    public void printAllAccounts() {
         for (Account account : accounts) {
-            if (account.getNumeroConta() == numeroConta) {
-                log.log(logType.INFO, "Conta n." + account.getNumeroConta() + " foi encontrado no catalogo ");
-                return account;
-            }
+            System.out.println("\n\nCONTA =======================");
+            System.out.println(account);
         }
-        return null;
     }
 
 }
