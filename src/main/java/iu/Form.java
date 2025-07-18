@@ -37,22 +37,22 @@ public class Form {
         return Double.parseDouble(scanInput.nextLine());
     }
 
-    public String registerForm(String tipoRetorno) {
-        if (tipoRetorno.equalsIgnoreCase("titular")) {
-            System.out.print("Nome do Titular: ");
-        }
-        if (tipoRetorno.equalsIgnoreCase("chavePix")) {
-            System.out.print("Chave Pix: ");
-        }
+    public String registerTitular() {
+        System.out.print("Nome do Titular: ");
         return scanInput.nextLine();
     }
 
-    public int registerForm(String tipoRetorno) {
+    public String registerChavePix() {
+        System.out.print("Chave Pix: ");
+        return scanInput.nextLine();
+    }
+
+    public int registerNumeroConta() {
         System.out.print("Número da Conta: ");
         return Integer.parseInt(scanInput.nextLine());
     }
 
-    public double registerForm(String tipoRetorno) {
+    public double registerSaldo() {
         System.out.println("Saldo: ");
         return Double.parseDouble(scanInput.nextLine());
     }

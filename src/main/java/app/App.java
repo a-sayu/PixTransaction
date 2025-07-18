@@ -31,10 +31,10 @@ public class App {
             option = form.initialForm();
             switch (option) {
                 case 1 -> {
-                    String titular = form.registerForm("titular");
-                    int numeroConta = form.registerForm("numeroConta");
-                    String chavePix = form.registerForm("chavePix");
-                    double saldo = form.registerForm("saldo");
+                    String titular = form.registerTitular();
+                    int numeroConta = form.registerNumeroConta();
+                    String chavePix = form.registerChavePix();
+                    double saldo = form.registerSaldo();
                     registerAccount(titular, numeroConta, chavePix, saldo);
                 }
                 case 2 -> {
