@@ -1,6 +1,5 @@
 package log;
 
-import log.logType;
 import java.time.LocalDateTime;
 
 /**

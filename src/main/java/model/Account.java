@@ -1,8 +1,5 @@
 package model;
 
-import log.Logger;
-import log.logType;
-
 /**
  *
  * @author Abigail S. N. - @a-sayu
@@ -10,53 +7,46 @@ import log.logType;
  */
 public class Account {
 
-    private int numeroConta;
-    private String titular;
-    private String chavePix;
-    private double saldo;
+    private String holder;
+    private String pixKey;
+    private double balance;
 
-    public Account(String titular, int numeroConta, String chavePix, double saldo) {
-        this.titular = titular;
-        this.numeroConta = numeroConta;
-        this.chavePix = chavePix;
-        this.saldo = saldo;
+    public Account(String holder, String pixKey, double saldo) {
+        this.holder = holder;
+        this.pixKey = pixKey;
+        this.balance = saldo;
     }
 
-    public boolean creditSaldo(double value) {
-        saldo += value;
+    public boolean creditBalance(double value) {
+        balance += value;
         return true;
     }
 
-    public boolean debitSaldo(double value) {
-        if (value > saldo) {
+    public boolean debitBalance(double value) {
+        if (value > balance) {
             return false;
         }
-        saldo -= value;
+        balance -= value;
         return true;
     }
 
-    public String getTitular() {
-        return titular;
+    public String getHolder() {
+        return holder;
     }
 
-    public int getNumeroConta() {
-        return numeroConta;
+    public String getPixKey() {
+        return pixKey;
     }
 
-    public String getChavePix() {
-        return chavePix;
-    }
-
-    public double getSaldo() {
-        return saldo;
+    public double getBalance() {
+        return balance;
     }
 
     @Override
     public String toString() {
-        return "Titular: " + getTitular()
-                + "\nn. Conta: " + getNumeroConta()
-                + "\nChave Pix: " + getChavePix()
-                + "\nSaldo: " + getSaldo();
+        return "Titular: " + getHolder()
+                + "\nChave Pix: " + getPixKey()
+                + "\nSaldo: " + getBalance();
     }
 
 }

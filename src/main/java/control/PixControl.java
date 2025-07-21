@@ -1,8 +1,10 @@
 package control;
 
+import catalog.PixCatalog;
 import log.Logger;
 import log.logType;
 import model.Account;
+import model.Pix;
 
 /**
  *
@@ -12,22 +14,22 @@ import model.Account;
 public class PixControl {
 
     private Logger log;
+    private final PixCatalog catalog;
 
     public PixControl() {
         log = Logger.getInstance();
+        catalog = new PixCatalog();
     }
 
-    public boolean transactionByPix(Account a, Account b, Double value) {
-        if (a.debitSaldo(value)) {
-            b.creditSaldo(value);
-            log.log(logType.INFO, "Um Pix de R$ " + value
-                    + " foi feito para " + b.getTitular()
-                    + " de " + a.getTitular());
-            return true;
+    public boolean transactionByPix(Account payer, Account payee, Double value) {
+        if (payer.debitBalance(value)) {
+            payee.creditBalance(value);
+            Pix pix = new Pix(value, payer, payee);
+            return catalog.addPix(pix);
         }
         log.log(logType.ERROR, "Um Pix de R$ " + value
-                + " nao foi realizado para " + b.getTitular()
-                + ", o valor eh superior ao saldo de " + a.getTitular());
+                + " nao foi realizado para " + payee.getHolder()
+                + ", o valor eh superior ao saldo de " + payer.getHolder());
         return false;
     }
 
