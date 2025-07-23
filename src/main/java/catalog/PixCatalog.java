@@ -22,23 +22,29 @@ public class PixCatalog {
     }
 
     public boolean addPix(Pix pix) {
-        if (pixRecords.add(pix)) {
-            log.log(logType.INFO, "= Pix ="
-                    + "Data do Pix: " + pix.getPaymentDate()
-                    + " Pagador: " + pix.getPayer().getHolder()
-                    + " Recebedor: " + pix.getPayee().getHolder()
-                    + " Chave Pix: " + pix.getPayee().getPixKey()
-                    + " Valor do Pix: " + pix.getValue()
-                    + " foi criado e adicionada ao catalgo.");
-            return true;
+        if (pix.getPayer().debitBalance(pix.getValue())) {
+            pix.getPayee().creditBalance(pix.getValue());
+            if (pixRecords.add(pix)) {
+                log.log(logType.INFO, "= Pix ="
+                        + " Data do Pix: " + pix.getPaymentDate()
+                        + " Pagador: " + pix.getPayer().getHolder()
+                        + " Recebedor: " + pix.getPayee().getHolder()
+                        + " Chave Pix: " + pix.getPayee().getPixKey()
+                        + " Valor do Pix: " + pix.getValue()
+                        + " foi criado e adicionada ao catalgo.");
+                return true;
+            } else {
+                pix.getPayee().debitBalance(pix.getValue());
+                pix.getPayer().creditBalance(pix.getValue());
+            }
         }
         log.log(logType.ERROR, "= Pix =\n"
-                + "Data do Pix: " + pix.getPaymentDate()
+                + " Data do Pix: " + pix.getPaymentDate()
                 + " Pagador: " + pix.getPayer().getHolder()
                 + " Recebedor: " + pix.getPayee().getHolder()
                 + " Chave Pix: " + pix.getPayee().getPixKey()
                 + " Valor do Pix: " + pix.getValue()
-                + " não foi adicionada ao catalogo");
+                + " nao foi adicionada ao catalogo");
         return false;
     }
 

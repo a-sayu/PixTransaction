@@ -16,8 +16,8 @@ public class AccountControl {
         catalog = new AccountCatalog();
     }
 
-    public Account searchAccountByPixKey(String chavePix) {
-        Account account = catalog.findAccountByPixKey(chavePix);
+    public Account searchAccountByPixKey(String pixKey) {
+        Account account = catalog.findAccountByPixKey(pixKey);
         return account;
     }
 

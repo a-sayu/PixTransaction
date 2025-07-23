@@ -21,19 +21,19 @@ public class AccountCatalog {
     }
 
     public boolean addAccount(Account account) {
-        if (findAccountByPixKey(account.getPixKey()) != null) {
+        if (findAccountByPixKey(account.getPixKey()) == null) {
+            if (accounts.add(account)) {
+                log.log(logType.INFO, "Conta com titular: " + account.getHolder()
+                        + ", chave pix: " + account.getPixKey()
+                        + " e saldo de R$ " + account.getBalance()
+                        + " foi criada e adicionada ao catalgo.");
+                return true;
+            }
+            log.log(logType.ERROR, "Conta com chave Pix:" + account.getPixKey()
+                    + " não foi adicionada ao catalogo");
+        } else {
             log.log(logType.WARN, "Conta com chave Pix:" + account.getPixKey() + " já existe no catalogo");
-            return false;
         }
-        if (accounts.add(account)) {
-            log.log(logType.INFO, "Conta com titular: " + account.getHolder()
-                + ", chave pix: " + account.getPixKey()
-                + " e saldo de R$ " + account.getBalance()
-                + " foi criada e adicionada ao catalgo.");
-            return true;
-        }
-        log.log(logType.ERROR, "Conta com chave Pix:" + account.getPixKey()
-                + " não foi adicionada ao catalogo");
         return false;
     }
 

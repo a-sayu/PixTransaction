@@ -27,8 +27,10 @@ public class Form {
         System.out.println("2. Conectar Conta");
         System.out.println("3. Realizar um Pix");
         System.out.println("4. Visualizar Sua Conta");
-        System.out.println("5. Visualizar Todas as Contas");
-        System.out.println("6. Visualizar Log");
+        System.out.println("5. Visualizar Seu Extrato");
+        System.out.println("6. Visualizar Todas as Contas");
+        System.out.println("7. Visualizar Todas os Extratos");
+        System.out.println("8. Visualizar Log");
         System.out.println("0. Sair");
         return Integer.parseInt(scanInput.nextLine());
     }
@@ -72,9 +74,19 @@ public class Form {
                     }
                 }
                 case 5 -> {
-                    accountControl.showAllAccounts();
+                    if (!connected.isBlank()) {
+                        returnPixTransactionExtract(connected);
+                    } else {
+                        notConnected();
+                    }
                 }
                 case 6 -> {
+                    accountControl.showAllAccounts();
+                }
+                case 7 -> {
+                    pixControl.showAllPixTransactions();
+                }
+                case 8 -> {
                     log.showLog();
                 }
                 case 0 -> {
@@ -136,6 +148,13 @@ public class Form {
     public boolean notConnected() {
         System.out.println("Voce nao esta conectado");
         System.out.println("Conecte uma conta valida");
+        return true;
+    }
+
+    private boolean returnPixTransactionExtract(String connected) {
+        System.out.println("= BANCO CONFIAVEL ==========\n");
+        System.out.println("= SALDO ====================\n");
+        pixControl.showPixExtract(accountControl.searchAccountByPixKey(connected));
         return true;
     }
 }
