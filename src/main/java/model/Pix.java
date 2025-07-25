@@ -11,15 +11,10 @@ public class Pix {
 
     private double value;
     private String pixKey;
-    private Type pixType;
+    private PixType pixType;
     private LocalDateTime paymentDate;
 
-    public enum Type {
-        PAYER,
-        PAYEE
-    }
-
-    public Pix(String pixKey, double Value, Type pixType) {
+    public Pix(String pixKey, double Value, PixType pixType) {
         this.pixKey = pixKey;
         this.value = Value;
         this.pixType = pixType;
@@ -28,7 +23,7 @@ public class Pix {
 
     @Override
     public String toString() {
-        String label = getType() == Type.PAYEE ? "Pagador" : "Recebedor";
+        String label = getType() == PixType.PAYEE ? "Pagador" : "Recebedor";
 
         return "Data do Pix: " + getPaymentDate()
                 + "\nChave Pix do " + label + ": " + getPixKey()
@@ -48,7 +43,7 @@ public class Pix {
         return pixKey;
     }
 
-    public Type getType() {
+    public PixType getType() {
         return pixType;
     }
 

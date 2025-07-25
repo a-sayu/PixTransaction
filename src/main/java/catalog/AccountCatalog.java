@@ -67,13 +67,6 @@ public class AccountCatalog {
         System.out.println(account);
     }
 
-    public void printAllAccounts() {
-        for (Account account : accounts) {
-            System.out.println("\n\nCONTA =======================");
-            System.out.println(account);
-        }
-    }
-
     public boolean addPix(String payerKey, String payeeKey, double value) {
         Account payer = findAccountByPixKey(payerKey);
         Account payee = findAccountByPixKey(payeeKey);

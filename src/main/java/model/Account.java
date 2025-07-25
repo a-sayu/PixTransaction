@@ -59,7 +59,7 @@ public class Account {
 
     public boolean addPixAsPayee(String pixKey, double value) {
         if (creditBalance(value)) {
-            Pix pix = new Pix(pixKey, value, Pix.Type.PAYEE);
+            Pix pix = new Pix(pixKey, value, PixType.PAYEE);
             pixRecords.add(pix);
             return true;
         }
@@ -68,7 +68,7 @@ public class Account {
 
     public boolean addPixAsPayer(String pixKey, double value) {
         if (debitBalance(value)) {
-            Pix pix = new Pix(pixKey, value, Pix.Type.PAYER);
+            Pix pix = new Pix(pixKey, value, PixType.PAYER);
             pixRecords.add(pix);
             return true;
         } 
