@@ -1,4 +1,3 @@
-
 package model;
 
 import java.time.LocalDateTime;
@@ -9,42 +8,48 @@ import java.time.LocalDateTime;
  *
  */
 public class Pix {
+
     private double value;
-    private Account payer;
-    private Account payee;
+    private String pixKey;
+    private Type pixType;
     private LocalDateTime paymentDate;
 
-    public Pix(double Value, Account Payer, Account Payee) {
+    public enum Type {
+        PAYER,
+        PAYEE
+    }
+
+    public Pix(String pixKey, double Value, Type pixType) {
+        this.pixKey = pixKey;
         this.value = Value;
-        this.payer = Payer;
-        this.payee = Payee;
+        this.pixType = pixType;
         this.paymentDate = LocalDateTime.now();
     }
-    
+
     @Override
     public String toString() {
+        String label = getType() == Type.PAYEE ? "Pagador" : "Recebedor";
+
         return "Data do Pix: " + getPaymentDate()
-                + "\nPagador: " + getPayer().getHolder()
-                + "\nRecebedor: " + getPayee().getHolder()
-                + "\nChave Pix: " + getPayee().getPixKey()
+                + "\nChave Pix do " + label + ": " + getPixKey()
                 + "\nValor do Pix: " + getValue();
+
     }
 
     public double getValue() {
         return value;
     }
 
-    public Account getPayer() {
-        return payer;
-    }
-
-    public Account getPayee() {
-        return payee;
-    }
-
     public LocalDateTime getPaymentDate() {
         return paymentDate;
     }
-    
-    
+
+    public String getPixKey() {
+        return pixKey;
+    }
+
+    public Type getType() {
+        return pixType;
+    }
+
 }

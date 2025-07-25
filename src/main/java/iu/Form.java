@@ -1,7 +1,6 @@
 package iu;
 
 import control.AccountControl;
-import control.PixControl;
 import java.util.Scanner;
 import log.Logger;
 
@@ -14,7 +13,6 @@ public class Form {
 
     private Scanner scanInput;
     private AccountControl accountControl;
-    private PixControl pixControl;
     private Logger log;
 
     public Form() {
@@ -28,9 +26,7 @@ public class Form {
         System.out.println("3. Realizar um Pix");
         System.out.println("4. Visualizar Sua Conta");
         System.out.println("5. Visualizar Seu Extrato");
-        System.out.println("6. Visualizar Todas as Contas");
-        System.out.println("7. Visualizar Todas os Extratos");
-        System.out.println("8. Visualizar Log");
+        System.out.println("6. Visualizar Log");
         System.out.println("0. Sair");
         return Integer.parseInt(scanInput.nextLine());
     }
@@ -38,7 +34,6 @@ public class Form {
     public boolean initializeAtt() {
         log = Logger.getInstance();
         accountControl = new AccountControl();
-        pixControl = new PixControl();
         return true;
     }
 
@@ -50,11 +45,7 @@ public class Form {
 
             switch (option) {
                 case 1 -> {
-                    if (createAccount()) {
-                        System.out.println("Conta foi criada!");
-                    } else {
-                        System.out.println("Conta nao foi criada.");
-                    }
+                    createAccount();
                 }
                 case 2 -> {
                     connected = selectAccount();
@@ -81,12 +72,6 @@ public class Form {
                     }
                 }
                 case 6 -> {
-                    accountControl.showAllAccounts();
-                }
-                case 7 -> {
-                    pixControl.showAllPixTransactions();
-                }
-                case 8 -> {
                     log.showLog();
                 }
                 case 0 -> {
@@ -128,10 +113,7 @@ public class Form {
         pixKey = scanInput.nextLine();
         System.out.print("Digite o valor a ser transferido: ");
         pixValue = Double.parseDouble(scanInput.nextLine());
-        return pixControl.transactionByPix(
-                accountControl.searchAccountByPixKey(connected),
-                accountControl.searchAccountByPixKey(pixKey),
-                pixValue);
+        return accountControl.transactionByPix(connected, pixKey, pixValue);
     }
 
     public boolean returnBalance(String connected) {
@@ -154,7 +136,7 @@ public class Form {
     private boolean returnPixTransactionExtract(String connected) {
         System.out.println("= BANCO CONFIAVEL ==========\n");
         System.out.println("= SALDO ====================\n");
-        pixControl.showPixExtract(accountControl.searchAccountByPixKey(connected));
+        accountControl.showPixExtract(connected);
         return true;
     }
 }

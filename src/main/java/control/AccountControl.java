@@ -29,9 +29,13 @@ public class AccountControl {
     public void showAccount(String pixKey) {
         catalog.printAccount(pixKey);
     }
-
-    public void showAllAccounts() {
-        catalog.printAllAccounts();
+    
+    public boolean transactionByPix(String payer, String payee, double value) {
+        return catalog.addPix(payer, payee, value);
+    }
+    
+    public void showPixExtract(String pixKey) {
+        catalog.printAllPayments(pixKey);
     }
     
 }

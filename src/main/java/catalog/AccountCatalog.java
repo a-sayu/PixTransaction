@@ -74,4 +74,25 @@ public class AccountCatalog {
         }
     }
 
+    public boolean addPix(String payerKey, String payeeKey, double value) {
+        Account payer = findAccountByPixKey(payerKey);
+        Account payee = findAccountByPixKey(payeeKey);
+        if (payee == null || payer == null) {
+            return false;
+        }
+        if (payer.addPixAsPayer(payeeKey, value)) {
+            return payee.addPixAsPayee(payerKey, value);
+        }
+        log.log(logType.ERROR, "Transferência PIX falhou. Não foi possível debitar R$ " + value
+                + " da conta pagadora com chave: " + payerKey + ".");
+        return false;
+    }
+
+    public void printAllPayments(String pixKey) {
+        Account account = findAccountByPixKey(pixKey);
+        System.out.println("\n\nCONTA =======================");
+        System.out.println(account);
+        account.printPayments();
+    }
+
 }
